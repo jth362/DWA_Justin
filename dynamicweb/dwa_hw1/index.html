@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Don't Anger The Donald</title>
+	<style type="text/css">
+		body{
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<h1>Don't Anger The Donald</h1>
+
+<img id="donald" style="position: fixed; top: 25%; left: 30%;" src="img/smug_donald.jpg" onclick="whenClick()" />
+
+
+<script type="text/javascript">
+		
+	document.getElementById('donald').addEventListener('mouseover', whenHover);
+
+	function whenHover(e) {
+
+		alert ("Don't click me!");
+		
+	}
+
+
+
+	document.getElementById('donald').addEventListener('click', whenClick);
+
+	function whenClick(e) {
+		alert ("I said don't click me!!!");
+		document.getElementById("donald").src ="img/angry_donald3.jpg";
+
+
+		
+	}
+	</script>
+
+<h4 style="bottom: 0;">Justin Harrison</h4>
+</body>
+</html>

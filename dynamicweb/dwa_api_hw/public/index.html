@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+	<style type="text/css">
+		body{
+	 		text-align: left;
+	 	}
+
+		h1{
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			text-align: center;
+		}
+
+		div{
+			margin: 10px;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			
+		}
+
+	</style>
+	</head>
+	<body>
+		<script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		
+		<h1>What's the news with ______?
+		<form action="https://api.nytimes.com/svc/search/v2/articlesearch.json" method="get">
+			<input type="text" name="q" id="q"/>
+
+			<input type="hidden" name="appid" value="1f996c17d4604cd5aad6a11c0f25a46f">
+			<input type="hidden" name="mode" value="html">
+			
+			<input type="submit" value="Submit">
+</h1>
+		
+
+		
+
+	<script type="text/javascript">
+
+    
+    $(document).ready(function() {
+      
+      // get the form(s) and add event listener on "submit"
+      $('form').on('submit', handleSubmit);
+
+      function handleSubmit(event) {
+        // dont leave the page!
+        event.preventDefault();
+
+        var formData = {
+          q: $('#q').val(),      // document.getElementById('q').value
+          appid: '1f996c17d4604cd5aad6a11c0f25a46f',
+          mode: 'json',
+          units: 'metric'
+        };
+
+
+        $.ajax({
+          url: 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
+          method: 'get',
+          data: formData
+        })
+          .done(gotData)
+          .fail(handleError)
+          .always(returnArticle)
+      }
+
+      function gotData(data) {
+        console.log(data.response.docs);
+      }
+
+      function handleError(err) {
+        console.log('error', err);
+      }
+
+      function returnArticle(data){
+      	var myArticlesDiv = document.createElement("DIV");
+
+      	for (i = 0; i < data.response.docs.length; i++){
+      		var articleTitle = document.createTextNode(
+      		'Article Title: ' + data.response.docs[i].headline.main);
+      		var author = document.createTextNode( "Author: " + data.response.docs[i].byline.original);
+      		var snippet = document.createTextNode("Snippet: '" + data.response.docs[i].snippet);
+      		var articleURL = document.createTextNode("URL:" + data.response.docs[i].web_url)
+      	  	myArticlesDiv.appendChild(articleTitle);
+      	  	myArticlesDiv.appendChild(document.createElement("BR"));
+      	  	myArticlesDiv.appendChild(author);
+      	  	myArticlesDiv.appendChild(document.createElement("BR"));
+      	  	myArticlesDiv.appendChild(snippet);
+      	  	myArticlesDiv.appendChild(document.createElement("BR"));
+      	  	myArticlesDiv.appendChild(articleURL);
+      	  	myArticlesDiv.appendChild(document.createElement("BR"));
+      	  	myArticlesDiv.appendChild(document.createElement("BR"));
+     	 }
+      	
+      	document.body.appendChild(myArticlesDiv);
+      }
+
+
+    });
+
+	</script>
+
+
+
+
+	</body>
+</html>

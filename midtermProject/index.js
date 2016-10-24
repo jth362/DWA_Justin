@@ -28,6 +28,10 @@ app.use('/deals', deal);
 var map = require('./routes/map');
 app.use('/map', map);
 
+var search = require('./routes/search');
+app.use('/search', search);
+
+
 app.use( express.static('public') );
 
 // start server

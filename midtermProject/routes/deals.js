@@ -15,9 +15,15 @@ router.get('/add', function(req, res) {
 });
 
 
-
 router.post('/add', upload.single('image'), function(req, res) {
-  var address = req.body.address;
+    var googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyAavTu3nfGQoWONeqH4g6RE2nW7P0TXZEQ'
+});
+
+googleMapsClient.geocode({
+  address: req.body.address
+}, function(err, response) {
+  if (!err) {
   var deal = new Deal({
     name: req.body.name,
     slug: slugify(req.body.name),
@@ -27,6 +33,10 @@ router.post('/add', upload.single('image'), function(req, res) {
     category: req.body.tags,
     imageFilename: req.file.filename
   });
+    var address = new Address({
+        name: req.body.name,
+        coordinates: response.json.results[0].geometry.location,
+    });
      
   deal.save(function(err, data) {
     if (err) {
@@ -37,31 +47,14 @@ router.post('/add', upload.single('image'), function(req, res) {
     
     return res.redirect(303, '/deals');
   });
-    
-     var googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyAavTu3nfGQoWONeqH4g6RE2nW7P0TXZEQ'
-});
-
-googleMapsClient.geocode({
-  address: req.body.address
-}, function(err, response) {
-  if (!err) {
-       var address = new Address
-  ({
-      name: req.body.name,
-      address: response.json.results[0].geometry.location
+      
+  address.save(function(err,data){
+      
   });
-    
-  address.save(function(err, data){
-      if (err){
-          console.log(err);
-      }
-  });
-  }
-});
   
   }
- );
+});
+});
 
 
 router.get('/', function(req, res) {

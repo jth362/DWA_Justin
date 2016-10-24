@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var addressSchema = new Schema({
   name: String,
-  address: Object
+  coordinates: {type: Object, required: true}
 });
 
 var Address = mongoose.model('Address', addressSchema);

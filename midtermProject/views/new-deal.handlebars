@@ -1,6 +1,15 @@
- <button type="button" class="btn btn-default pull-right head" id="headerBtn"><a href="add">Submit a Deal</a></button>
-    <button type="button" class="btn btn-default pull-right head" id="headerBtn"><a href="../map">Search the Map</a></button>
+<!-- Header -->
+
+<!-- Logo -->
     <h1 class="logo"><a href="../search" class="heading">CheapEats</a></h1>
+
+<!-- Nav buttons-->
+<ul class="nav nav-pills navbar-right">
+  <li role="presentation" class="active"><a href="add" class="navbutton">Submit a Deal</a></li>
+  <li role="presentation" class="active"><a href="../map" class="navbutton">Search the Map</a></li>
+</ul>
+
+<!-- Form -->
 
 <div class="form">
 <form action="/deals/add" method="post" enctype="multipart/form-data">
@@ -49,6 +58,7 @@
 </div>
 
 
+<!-- Load google maps api for geocoding -->
 <script
  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAavTu3nfGQoWONeqH4g6RE2nW7P0TXZEQ
 &callback=initMap">

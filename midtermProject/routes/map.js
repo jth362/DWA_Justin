@@ -18,8 +18,8 @@ router.get('/', function(req, res) {
                 data
             }
             //=> [ { _id: 1234, ...  } ] 
-            console.log(pageData.data);
-              res.render('map');
+            console.log(pageData.data[0].address.lat);
+              res.render('map', pageData);
         });
 });
 

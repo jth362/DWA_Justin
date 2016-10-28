@@ -6,9 +6,12 @@ a, a:hover{
 .nav-pills{
     margin-right: 2%;
     margin-top: -50px;
+    font-size: 
 }
 .nav-pills > li.active > a{
 background-color: #E8A433;
+font-size: 18px;
+    
 }
 
 .nav-pills > li.active > a:hover,

@@ -9,7 +9,7 @@ router.get('/', function(req, res){
     res.render('search');
 });
 
-router.get('/:category', function(req, res) {
+router.find('/' + category, function(req, res) {
     Deal.findOne({category: req.params.category}, function(err, data) {
     var pageData = {
       deals: [data]

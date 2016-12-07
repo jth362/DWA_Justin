@@ -1,12 +1,47 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
+var FacebookStrategy = require('passport-facebook');
 var User = require('../models/user');
+
+var fbOptions = {
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:8081/auth/facebook/callback"
+};
+
+function fbCallback(accessToken, refreshToken, profile, cb){
+    //query database for a user that matches this facebook profile
+    User.findOne({facebookId: profile.id},
+        function(err, user){
+        if(err){
+            console.log(err);
+        }
+        //1. user already exists
+        if(user){
+            return cb(err, user);
+        }
+        //2. create new user
+        var newUser = new User({
+            facebookId: profile.id,
+            username: profile.first_name + profile.id
+        });
+        
+        newUser.save(function(err, user){
+            if (err){
+                console.log(err);
+            }
+            return cb(err, user);
+        });
+    });
+}
 
 module.exports = function(app, options){
     
     return {
         init: function(){
             passport.use(new LocalStrategy(User.authenticate()));
+            
+            passport.use(new FacebookStrategy(fbOptions, fbCallback));
             passport.serializeUser(function(user, done){
                 done(null, user._id);
             });
@@ -41,7 +76,6 @@ module.exports = function(app, options){
             app.post('/signup', function(req, res, next) {
                 var newUser = new User({
                     username: req.body.username,
-                    treats: req.body.treats
                 });
                 
                 User.register(newUser, req.body.password, function(err, user){
@@ -80,6 +114,16 @@ module.exports = function(app, options){
                 res.redirect('/')
             });
             
+            // two routes for facebook login
+            
+            app.get('/auth/facebook',  passport.authenticate('facebook'));
+            
+            app.get('/auth/facebook/callback', 
+                    passport.authenticate('facebook', {failureRedirect: '/login'}), 
+                    function(req, res){
+                    res.redirect('/');
+                });
+                    
             app.get('/logout', function(req, res) {
                 req.logout();
                 req.session.flash = {

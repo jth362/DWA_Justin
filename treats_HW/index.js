@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+var treats = [];
 
 // load .env
 require('dotenv').config();
@@ -60,9 +61,9 @@ auth.registerRoutes();
 // home page
 
 app.get('/', function(req, res) {
-  if (req.session.treat) {
+  if (req.user) {
    return res.render('view', {
-     msg: 'You have some candy: ' + treats
+     msg: 'You have some candy: ' + req.user.treats
    }); 
   }
   return res.render('view', {
@@ -144,6 +145,17 @@ app.get('/clear', function(req, res) {
   res.redirect('/');
 });
 
+app.post('/candy', function(req, res){
+    var User = require('./models/user');
+    User.findByIdAndUpdate(req.user._id, {$push: {treats: req.body.treat}}, function(err, user){
+        if(err){
+            res.status('500').json({
+                status: 'error'
+            });
+        }
+        return res.json(user.treats)
+    })
+});
 
 // start server
 app.listen(PORT, function() {

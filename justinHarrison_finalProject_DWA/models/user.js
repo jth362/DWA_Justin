@@ -3,15 +3,11 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
-    role: String,
-    twitterId: String,
-    facebookId: String,
-    treats: [String]
+    role: String, //For Authorization (User or Admin)
+    
 });
 
-//plugin adds username, hash, and salt for password
-
+//plugin adds Username, has and salt for password
 User.plugin(passportLocalMongoose);
 
-//export the Model of the User schema
 module.exports = mongoose.model('User', User);

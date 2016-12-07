@@ -1,0 +1,67 @@
+<!-- Header -->
+
+<!-- Logo -->
+    <h1 class="logo"><a href="../search" class="heading">CheapEats</a></h1>
+
+<!-- Nav buttons-->
+<ul class="nav nav-pills navbar-right">
+  <li role="presentation" class="active"><a href="../deals" class="navbutton">View Deals</a></li>
+  <li role="presentation" class="active"><a href="add" class="navbutton">Submit a Deal</a></li>
+  <li role="presentation" class="active"><a href="../map" class="navbutton">Search the Map</a></li>
+</ul>
+
+<!-- Form -->
+
+<div class="form">
+<form action="/deals/add" method="post" enctype="multipart/form-data">
+  
+  <div class="row">
+  <div class="form-group col-md-9">
+  <label for="name" class="submitForm">Name: </label>
+  <input type="text" class="form-control" name="name" id="name">
+  </div>
+
+   <div class="form-group col-md-3">
+  <label for="price">Price ($): </label>
+  <input type="number" class="form-control" name="price" min="0" max="10" id="price">
+       </div>
+      
+  </div>
+    
+  <div class="row">
+  <div class="form-group col-md-11">
+  <label for="address">Address: </label>
+  <input type="text" class="form-control" placeholder="Please enter the full address with no commas (Street Address City State Zipcode)" name="address" id="address">
+    </div>
+   </div>
+    
+   <div class="row">
+   <div class="form-group col-md-11">
+   <label for="description">Description: </label>
+  <input type="text" class="form-control" name="description" id="description">
+      </div>
+    </div>
+    
+    <div class="row">
+   <div class="form-group col-md-7">
+  <label for="tags">Categories (comma separated): </label>
+  <input type="text" class="form-control" name="tags" id="tags">
+       </div>
+
+  <div class="form-group col-md-2">
+  <label for="image">Image: </label>
+  <input id="image" class="form-control-file" type="file" name="image" accepts="image/*">
+       </div>
+    </div>
+    
+    <button class="btn btn-default submit" type="submit">Submit</button>
+</form>
+</div>
+
+
+<!-- Load google maps api for geocoding -->
+<script
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAavTu3nfGQoWONeqH4g6RE2nW7P0TXZEQ
+&callback=initMap">
+    </script>
+

@@ -1,0 +1,25 @@
+<h1>WORKING</h1>
+{{#each deals}}
+<div class="deals">
+<div class="row" id="deal">
+  <div class="col-sm-9">
+      <button ><a href="/deals/{{slug}}/update">edit</a></button>
+   <h1><a href="/deals/{{slug}}" class="dealhead">{{name}}</a></h1>
+    <div class="row">
+      <div class="col-xs-8 col-sm-6">
+        <p>Address: {{address}}</p>
+      </div>
+        <div class="col-xs-8 col-sm-6">
+        <p>Coordinates: {{coordinates.lng}}</p>
+      </div>
+        <div class="col-xs-4 col-sm-6">
+        <p>Price: ${{price}}.00</p>
+      </div>
+      <div class="col-xs-4 col-sm-6">
+        <p>Categories: {{category}}</p>
+      </div>
+      <div class="col-sm-9">
+        <p>Description: {{description}}</p>
+        </div>
+      <img style="height: 325px; width: 325px; margin-left:90%; margin-top: -160px;margin-bottom: 40px;" src="/uploads/{{imageFilename}}">
+{{/each}}

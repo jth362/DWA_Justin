@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var User = require('../models/user');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
 var path = require('path');
-
 var multer = require('multer');
 var uploadPath = path.join(__dirname, '../public/uploads');
 var upload = multer({ dest: uploadPath});
@@ -63,9 +66,21 @@ router.get('/:dealSlug', function(req, res) {
     var pageData = {
       deals: [data]
     };
-    res.render('deals', pageData);
+    console.log[data];
+    res.render('singleDeal', pageData);
   });
 });
+
+router.get('/:dealSlug/update', function(req, res) {
+    Deal.findOne({slug: req.params.dealSlug}, function(err, data) {
+    var pageData = {
+      deals: [data]
+    };
+    console.log[data];
+    res.render('updateDeal', pageData);
+  });
+});
+
   
 module.exports = router;
 

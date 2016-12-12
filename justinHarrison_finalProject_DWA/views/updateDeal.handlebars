@@ -1,0 +1,26 @@
+<h1>WORKING</h1>
+{{#each deals}}
+<div class="deals">
+<div class="row" id="deal">
+  <div class="ui form">
+    <div class="field">
+        <label>Name</label>
+        <div class="field">
+            <input type="text" name="deal[name]" placeholder="{{name}}">
+        </div>
+        <div class="field">
+            <input type="text" name="deal[address]" placeholder="{{address}}">
+        </div>
+         <div class="field">
+            <input type="text" name="deal[price]" placeholder="${{price}}.00">
+        </div>
+        <div class="field">
+            <input type="text" name="deal[category]" placeholder="{{category}}">
+        </div>
+        <div class="field">
+            <input type="text" name="deal[description]" placeholder="{{description}}">
+        </div>
+        
+        
+{{/each}}
+                <button href="/update">save</button>

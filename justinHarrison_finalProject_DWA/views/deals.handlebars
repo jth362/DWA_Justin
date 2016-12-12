@@ -1,31 +1,5 @@
-<!-- Header -->
-<!-- Logo -->
-    <h1 class="logo heading"><a href="../search" class="heading">CheapEats</a></h1>
+<!-- Loads each deal -->
 
- <!-- Nav buttons-->
-<div class="ui secondary  menu">
-  <a class="item">
-  </a>
-  <div class="right menu">
-      <a class="item" href="map">
-    Map
-  </a>
-      <a class="item" href="deals/add">
-    Submit a Deal
-  </a>
-    <div class="item">
-      <div class="ui icon input">
-        <input type="text" placeholder="Search...">
-        <i class="search link icon"></i>
-      </div>
-    </div>
-    <a class="ui item">
-      Logout
-    </a>
-  </div>
-</div>
-
- <!-- Loads each deal -->
 <div class="ui cards">
 {{#each deals}}
 
@@ -34,7 +8,7 @@
     <img src="/uploads/{{imageFilename}}">
   </div>
   <div class="content">
-    <a class="header">{{Name}}</a>
+    <a class="header" href="/deals/{{slug}}">{{name}}</a>
     <div class="price">
       ${{price}}.00
     </div>

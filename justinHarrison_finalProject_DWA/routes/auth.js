@@ -2,16 +2,20 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var User = require('../models/user');
 
+
 module.exports = function(app, options){
+    
     return {
         init: function(){
             passport.use(new LocalStrategy(User.authenticate()));
-            passport.serializeUser(function(user,done){
+            passport.serializeUser(function(user, done){
                 done(null, user._id);
             });
+            
             passport.deserializeUser(function(id, done){
-                User.findById(id, function(err, data){
-                    if(err || !user) return done(err, null);
+                User.findById(id, function(err, user){
+                    if(err || !user)
+                    return done(err, null);
                     done(null, user);
                 });
             });
@@ -22,12 +26,14 @@ module.exports = function(app, options){
             app.use(function(req, res, next){
                 res.locals.user = req.user;
                 next();
-            });
+            })
+            
         },
         registerRoutes: function(){
             app.get('/register', function(req, res){
-                res.render('register', {viewName: 'register'});
+                res.render('loginregister', {viewName: 'register'});
             });
+            
             app.post('/register', function(req, res, next){
                 var newUser = new User({username: req.body.username});
                 
@@ -37,28 +43,25 @@ module.exports = function(app, options){
                     }
                     
                     passport.authenticate('local')(req, res, function(){
-                        req.session.flash = {
-                        type: 'positive',
-                        header: 'Registration Success',
-                        body: 'Welcome, ' + user.username
-                        }
-                        res.redirect('/deals')
+                        res.redirect('/profile')
                     });
                 });
             });
             
             app.get('/login', function(req, res){
-                res.render('login', {viewName: 'login'});
+                res.render('loginregister', {viewName: 'login'});
             });
+            
             app.post('/login', passport.authenticate('local'), function(req,res,next){
-                req.session.flash = {
-                    type: 'positive',
-                    header: 'signed in',
-                    body: 'Welcome, ' + req.body.username
-                };
-                res.redirect('/deals')
+                res.redirect('/profile')
                 console.log('login successful')
                     });
+            
+            app.get('/logout', function(req, res) {
+                req.logout();
+                res.redirect('/deals');
+            });
+            
                 }
                 }
             }

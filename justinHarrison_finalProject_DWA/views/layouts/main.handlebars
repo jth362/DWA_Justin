@@ -36,7 +36,46 @@
     </style>
 </head>
 <body>
-    {{{body}}}
+    <div class="ui secondary  menu">
+        <div class="item">
+            <h1 class="logo heading"><a href="../search" class="heading">CheapEats</a></h1>
+        </div>
+    <div class="right menu">
+      <a class="item" href="map">
+          Map
+      </a>
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    {{#if user}}
+    <div class="item">
+    <a class="ui item" href="profile">
+      {{user.username}}
+    </a>
+    </div>
+    <div class="item">
+    <a class="ui item" href="logout">
+      Logout
+    </a>
+    </div>
+    {{else}}
+    <div class="item">
+    <a class="ui item" href="login">
+      Log in
+    </a>
+        </div>
+    <div class="item">
+    <a class="ui item" href="register">
+      Register
+    </a>
+        </div>
+    {{/if}}
+  </div>
+</div>
 
+        {{{body}}}
 </body>
 </html>

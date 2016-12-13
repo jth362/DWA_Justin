@@ -1,15 +1,9 @@
 {{#each deals}}
-<div class="deals">
-<div class="row" id="deal">
-  <div class="col-sm-9">
+<div style=" background-color:cornsilk; margin-left: 10%; margin-right: 10%; margin-top: 1%; border-radius: 10px;  font-size: 18px; padding: 2%;">
       <button ><a href="/deals/{{slug}}/update">edit</a></button>
    <h1><a href="/deals/{{slug}}" class="dealhead">{{name}}</a></h1>
-    <div class="row">
       <div class="col-xs-8 col-sm-6">
         <p>Address: {{address}}</p>
-      </div>
-        <div class="col-xs-8 col-sm-6">
-        <p>Coordinates: {{coordinates.lng}}</p>
       </div>
         <div class="col-xs-4 col-sm-6">
         <p>Price: ${{price}}.00</p>
@@ -21,4 +15,5 @@
         <p>Description: {{description}}</p>
         </div>
       <img style="height: 325px; width: 325px; margin-left:60%; margin-top: -160px;margin-bottom: 40px;" src="/uploads/{{imageFilename}}">
+</div>
 {{/each}}

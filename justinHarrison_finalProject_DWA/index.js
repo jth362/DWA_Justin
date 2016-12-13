@@ -59,6 +59,7 @@ auth.registerRoutes();
 var deal = require('./routes/deals');
 app.use('/deals', deal);
 
+
 var map = require('./routes/map');
 app.use('/map', map);
 

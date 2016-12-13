@@ -19,7 +19,7 @@ router.get('/add', function(req, res) {
 
 router.post('/add', upload.single('image'), function(req, res) {
     var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyARifkldvbo_WNgDzbeyL9rnK_MGr7h32w'
+    key: 'AIzaSyB8U0bbIoGos3lwzUiuNYWAUaKxNOXFMG0'
     });
     
 googleMapsClient.geocode({address: req.body.address}, function(err, response) {
@@ -82,8 +82,10 @@ router.get('/:dealSlug/update', function(req, res) {
 });
 
 router.post('/:dealSlug/update', function(req, res){
-    Deal.findOne({slug: req.params.dealSlug}), function(err, deal){
-        console.log("found");
+    Deal.findOne({name: req.params.name}), function(err, deal){
+        deal.name.push({
+        name: req.body.name
+        });
     deal.save(function(err){
         if(err) return handleError(err)
         console.log('Success!');

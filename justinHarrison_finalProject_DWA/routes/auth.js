@@ -61,7 +61,11 @@ module.exports = function(app, options){
                 req.logout();
                 res.redirect('/deals');
             });
-            
-                }
+            },
+            addDeals: function(){
+            app.use(function(req, res, next){
+               if(req.user) req.user.deals = deals; 
+            });
+        }
                 }
             }

@@ -1,26 +1,27 @@
-<h1>WORKING</h1>
 {{#each deals}}
 <div class="deals">
 <div class="row" id="deal">
-  <div class="ui form">
-    <div class="field">
+  <form method="post">
+    <div style="margin-left: 5%; padding: 2%;" class="field">
         <label>Name</label>
-        <div class="field">
-            <input type="text" name="deal[name]" placeholder="{{name}}">
+        <div  class="field" style="padding: 2%;">
+            <input type="text" size="35" name="name" placeholder="{{name}}">
         </div>
-        <div class="field">
-            <input type="text" name="deal[address]" placeholder="{{address}}">
+        <label>Address</label>
+        <div class="field" style="padding: 2%;">
+            <input type="text" size="35" name="address" placeholder="{{address}}">
         </div>
-         <div class="field">
-            <input type="text" name="deal[price]" placeholder="${{price}}.00">
+        <label>Price</label>
+         <div class="field" style="padding: 2%;">
+            <input type="text" size="35" name="price" placeholder="${{price}}.00">
         </div>
-        <div class="field">
-            <input type="text" name="deal[category]" placeholder="{{category}}">
+        <label>Category</label>
+        <div class="field" style="padding: 2%;">
+            <input type="text" size="35" name="category" placeholder="{{category}}">
         </div>
-        <div class="field">
-            <input type="text" name="deal[description]" placeholder="{{description}}">
+        <label>Description</label>
+        <div class="field" style="padding: 2%;">
+            <input type="text" style="padding: 2%;" size="60" name="description" placeholder="{{description}}">
         </div>
-        
-        
+          <button href="/update">save</button>
 {{/each}}
-                <button href="/update">save</button>

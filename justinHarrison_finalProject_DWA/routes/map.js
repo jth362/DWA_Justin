@@ -9,7 +9,6 @@ var User = require('../models/user');
 
 router.get('/', function(req, res) {
     Deal.find({}, function(err, results){
-        console.log(results);
         res.render('map', {places : results});
         });     
      });

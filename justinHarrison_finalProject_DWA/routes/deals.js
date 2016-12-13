@@ -19,7 +19,7 @@ router.get('/add', function(req, res) {
 
 router.post('/add', upload.single('image'), function(req, res) {
     var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyAavTu3nfGQoWONeqH4g6RE2nW7P0TXZEQ'
+    key: 'AIzaSyARifkldvbo_WNgDzbeyL9rnK_MGr7h32w'
     });
     
 googleMapsClient.geocode({address: req.body.address}, function(err, response) {
@@ -28,7 +28,7 @@ googleMapsClient.geocode({address: req.body.address}, function(err, response) {
     name: req.body.name,
     slug: slugify(req.body.name),
     address: req.body.address,
-    coordinates: response.json.results[0].geometry.location[0],
+    coordinates: response.json.results[0],
     description: req.body.description,
     price: req.body.price,
     category: req.body.tags,
@@ -81,7 +81,18 @@ router.get('/:dealSlug/update', function(req, res) {
   });
 });
 
-  
+router.post('/:dealSlug/update', function(req, res){
+    Deal.findOne({slug: req.params.dealSlug}), function(err, deal){
+        console.log("found");
+    deal.save(function(err){
+        if(err) return handleError(err)
+        console.log('Success!');
+        res.redirect('/:dealSlug')
+    });
+}
+});
+
+
 module.exports = router;
 
 

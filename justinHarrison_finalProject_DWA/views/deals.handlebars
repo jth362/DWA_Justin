@@ -2,7 +2,6 @@
 
 <div class="ui cards">
 {{#each deals}}
-
 <div class="ui card">
   <div class="image">
     <img src="/uploads/{{imageFilename}}">
@@ -13,16 +12,36 @@
       ${{price}}.00
     </div>
   </div>
+{{#if user}}
   <div class="extra content">
       <span class="left floated like">
       <i class="like icon"></i>
       Like
     </span>
     <span class="right floated star">
-      <i class="star icon"></i>
+      <i onclick="save("{{name}}")" class="star icon" ></i>
       Favorite
     </span>
   </div>
+{{/if}}
 </div>
+    
 {{/each}}
 </div>
+
+<script>
+    function save(name){
+        console.log('saved');
+        name = name;
+        $.ajax({
+            url: '/deals',
+            method: 'POST',
+            data:{
+                deal: name
+            }
+        }).done(onSucces);
+    };
+        function onSuccess(data){
+            console.log(data);
+        };
+</script>

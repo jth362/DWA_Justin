@@ -1,4 +1,4 @@
-//load and start modules
+//load modules
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -7,11 +7,8 @@ var bodyParser = require('body-parser');
 var Mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
-
-
 require('dotenv').config();
 Mongoose.connect(process.env.DB_URL);
-
 var app = express();
 var portNum = 1234;
 app.set('port', portNum);

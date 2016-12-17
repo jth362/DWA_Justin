@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var geocoder = require('geocoder');
-
 var path = require('path');
 var Deal = require('../models/deal');
 var User = require('../models/user');

@@ -1,3 +1,4 @@
+<!-- navbar -->
 <div class="ui secondary  menu">
         <div class="item">
             <h1 class="logo heading" style="font-family: 'Londrina Solid', cursive; font-size: 48px; 
@@ -47,25 +48,27 @@
 
 <div id="map"></div>
 
- <script>
-         
-        var places = [];
-        {{#each places}}
-        {{#each coordinates}}
-            places.push( {
-                lat: {{lat}},
-                lng: {{lng}}
-            });
-        {{/each}}
-        {{/each}}
+<script>
+ //creates array and pushes coordinates of all deals
+ var places = [];
+    {{#each places}}
+    {{#each coordinates}}
+        places.push( {
+            lat: {{lat}},
+            lng: {{lng}}
+        });
+     {{/each}}
+     {{/each}}
   
         
     function initMap() {
+        //creates map
          var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.7128, lng: -74.0059},
           zoom: 12
         });
         
+        //creates marker for each deal
         for (var i = 0; i < places.length; i++){
          var marker = new google.maps.Marker({
          position: places[i],
@@ -76,7 +79,7 @@
         
         var infoWindow = new google.maps.InfoWindow({map: map});
 
-        // Try HTML5 geolocation.
+        // geolocates and centers map
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {

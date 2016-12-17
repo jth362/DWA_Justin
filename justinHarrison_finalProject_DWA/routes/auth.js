@@ -1,7 +1,7 @@
+//load modules
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var User = require('../models/user');
-
 
 module.exports = function(app, options){
     
@@ -30,6 +30,7 @@ module.exports = function(app, options){
             
         },
         registerRoutes: function(){
+            //register user
             app.get('/register', function(req, res){
                 res.render('loginregister', {viewName: 'register'});
             });
@@ -48,6 +49,7 @@ module.exports = function(app, options){
                 });
             });
             
+            //login
             app.get('/login', function(req, res){
                 res.render('loginregister', {viewName: 'login'});
             });
@@ -56,17 +58,13 @@ module.exports = function(app, options){
                 res.redirect('/deals')
                 console.log('login successful')
                     });
-            
+            //logout
             app.get('/logout', function(req, res) {
                 req.logout();
                 res.redirect('/deals');
             });
             },
         
-            addDeals: function(){
-            app.use(function(req, res, next){
-               if(req.user) req.user.deals = deals; 
-            });
-        }
+            
                 }
             }

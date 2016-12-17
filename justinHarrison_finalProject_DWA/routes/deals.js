@@ -13,11 +13,12 @@ var slug;
 
 var Deal = require('../models/deal');
 
+//renders new deal page
 router.get('/add', function(req, res) {
   res.render('new-deal');
 });
 
-
+//add new deal to database
 router.post('/add', upload.single('image'), function(req, res) {
     var googleMapsClient = require('@google/maps').createClient({
     key: 'AIzaSyB8U0bbIoGos3lwzUiuNYWAUaKxNOXFMG0'
@@ -45,7 +46,7 @@ router.post('/add', upload.single('image'), function(req, res) {
   }); 
 });
 
-
+//loads all deals on database
 router.get('/', function(req, res) {
   var query = {};
   if (req.query.name) {
@@ -60,6 +61,7 @@ router.get('/', function(req, res) {
 
 });
 
+//opens single deal page and creates variable for current information in case of update
 router.get('/:dealSlug', function(req, res) {
      slug = req.params.dealSlug;
     Deal.findOne({slug: req.params.dealSlug}, function(err, data) {
@@ -75,9 +77,8 @@ router.get('/:dealSlug', function(req, res) {
   });
 });
 
+//opens update page and renders previous data in form
 router.get('/:dealSlug/update', function(req, res) {
-    
-    
     Deal.findOne({slug: req.params.dealSlug}, function(err, data) {
     var pageData = {
       deals: [data]
@@ -86,6 +87,7 @@ router.get('/:dealSlug/update', function(req, res) {
   });
 });
 
+//checks to see if information has been update, and then updates on database where necessary
 router.post('/:dealSlug/update', function(req, res){
     if (req.body.name != ''){
         name = req.body.name;
@@ -109,6 +111,7 @@ router.post('/:dealSlug/update', function(req, res){
     res.redirect('/deals')
     });
 
+//not currently working
 router.delete('/:dealSlug/update', function(req, res){
     Deal.findOneAndDelete({slug: slug}, function(err, deal){
         

@@ -1,5 +1,54 @@
+<div class="ui secondary  menu">
+        <div class="item">
+            <h1 class="logo heading" style="font-family: 'Londrina Solid', cursive; font-size: 48px; 
+    color: white;
+    margin-left: 3%;
+    margin-top: 1%;"><a href="../../search" class="heading" style="text-decoration: none;
+    color:white;">CheapEats</a></h1>
+        </div>
+    <div class="right menu">
+      <a class="item" href="../../map">
+          Map
+      </a>
+        <a class="item" href="../../deals">
+          Deals
+      </a>
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    {{#if user}}
+    <div class="item">
+    <a class="ui item" href="../../profile">
+      {{user.username}}
+    </a>
+    </div>
+    <div class="item">
+    <a class="ui item" href="../../logout">
+      Logout
+    </a>
+    </div>
+    {{else}}
+    <div class="item">
+    <a class="ui item" href="../../login">
+      Log in
+    </a>
+        </div>
+    <div class="item">
+    <a class="ui item" href="../../register">
+      Register
+    </a>
+        </div>
+    {{/if}}
+  </div>
+</div>
+
+
 {{#each deals}}
 <div class="row" style=" background-color:cornsilk; margin-left: 10%; margin-right: 10%; margin-top: 1%; border-radius: 10px;  font-size: 18px;">
+
   <form method="post" action="/deals/:dealSlug/update">
     <div style="margin-left: 5%; padding: 2%;" class="field">
         <label>Name</label>
@@ -22,5 +71,5 @@
         <div class="field" style="padding: 2%;">
             <input type="text" style="padding: 2%;" size="60" name="description" placeholder="{{description}}">
         </div>
-          <button href="/update">save</button>
+          <button href="/">save</button>
 {{/each}}

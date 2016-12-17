@@ -1,10 +1,56 @@
+<!-- navbar -->
+<div class="ui secondary  menu">
+        <div class="item">
+            <h1 class="logo heading" style="font-family: 'Londrina Solid', cursive; font-size: 48px; 
+    color: white;
+    margin-left: 3%;
+    margin-top: 1%;"><a href="./search" class="heading" style="text-decoration: none;
+    color:white;">CheapEats</a></h1>
+        </div>
+    <div class="right menu">
+      <a class="item" href="map">
+          Map
+      </a>
+        <a class="item" href="deals">
+          Deals
+      </a>
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    {{#if user}}
+    <div class="item">
+    <a class="ui item" href="profile">
+      {{user.username}}
+    </a>
+    </div>
+    <div class="item">
+    <a class="ui item" href="logout">
+      Logout
+    </a>
+    </div>
+    {{else}}
+    <div class="item">
+    <a class="ui item" href="login">
+      Log in
+    </a>
+        </div>
+    <div class="item">
+    <a class="ui item" href="register">
+      Register
+    </a>
+        </div>
+    {{/if}}
+  </div>
+</div>
+
 <!-- Loads each deal -->
-{{#if user}}
- <button ><a href="/deals/add" style="color: black;">Submit New Deal</a></button>
-{{else}}
-<h4>Log in to submit a deal</h4>
-{{/if}}
+
 <div class="ui cards">
+
+
     
 {{#if user}}
 {{#each deals}}
@@ -47,25 +93,28 @@
   </div>
 </div> 
 {{/each}}
+{{/if}} 
+    
+{{#if user}}
+<div class="ui card">
+<div class="image">
+<img src="/uploads/610e746a3466fa6aa6eb6cee788bcfec">
+</div>
+<div class="content">
+<a class="header" href="deals/add">Add a new deal</a>
+</div>
+</div> 
+    
+{{else}}
+
+<div class="ui card">
+<div class="image">
+<img src="/uploads/610e746a3466fa6aa6eb6cee788bcfec">
+</div>
+<div class="content">
+<a class="header">Please login to save a deal</a>
+</div>
+</div> 
 {{/if}}
     
-    
-    
 </div>
-
-<script>
-    function save(name){
-        console.log('saved');
-        name = name;
-        $.ajax({
-            url: '/deals',
-            method: 'POST',
-            data:{
-                deal: name
-            }
-        }).done(onSucces);
-    };
-        function onSuccess(data){
-            console.log(data);
-        };
-</script>

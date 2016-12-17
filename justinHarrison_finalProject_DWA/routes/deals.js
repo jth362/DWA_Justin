@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var geocoder = require('geocoder');
 var User = require('../models/user');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -9,6 +9,7 @@ var path = require('path');
 var multer = require('multer');
 var uploadPath = path.join(__dirname, '../public/uploads');
 var upload = multer({ dest: uploadPath});
+var slug;
 
 var Deal = require('../models/deal');
 
@@ -22,13 +23,12 @@ router.post('/add', upload.single('image'), function(req, res) {
     key: 'AIzaSyB8U0bbIoGos3lwzUiuNYWAUaKxNOXFMG0'
     });
     
-googleMapsClient.geocode({address: req.body.address}, function(err, response) {
-  if (!err) {
-  var deal = new Deal({
+    geocoder.geocode(req.body.address, function(err, data){
+    var deal = new Deal({
     name: req.body.name,
     slug: slugify(req.body.name),
     address: req.body.address,
-    coordinates: response.json.results[0],
+    coordinates: data.results[0].geometry.location,
     description: req.body.description,
     price: req.body.price,
     category: req.body.tags,
@@ -42,8 +42,7 @@ googleMapsClient.geocode({address: req.body.address}, function(err, response) {
     }   
     return res.redirect(303, '/deals');
   });     
-  }
-});
+  }); 
 });
 
 
@@ -62,37 +61,61 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:dealSlug', function(req, res) {
+     slug = req.params.dealSlug;
     Deal.findOne({slug: req.params.dealSlug}, function(err, data) {
     var pageData = {
       deals: [data]
     };
-    console.log[data];
+    name = pageData.deals[0].name;
+    address = pageData.deals[0].address;
+    price = pageData.deals[0].price;
+    category = pageData.deals[0].tags;
+    description = pageData.deals[0].description;
     res.render('singleDeal', pageData);
   });
 });
 
 router.get('/:dealSlug/update', function(req, res) {
+    
+    
     Deal.findOne({slug: req.params.dealSlug}, function(err, data) {
     var pageData = {
       deals: [data]
     };
-    console.log[data];
     res.render('updateDeal', pageData);
   });
 });
 
 router.post('/:dealSlug/update', function(req, res){
-    Deal.findOne({name: req.params.name}), function(err, deal){
-        deal.name.push({
-        name: req.body.name
-        });
-    deal.save(function(err){
-        if(err) return handleError(err)
-        console.log('Success!');
-        res.redirect('/:dealSlug')
+    if (req.body.name != ''){
+        name = req.body.name;
+    }
+    if (req.body.address != ''){
+        address = req.body.address;
+    }
+    if (req.body.price != ''){
+        price = req.body.price;
+    }
+    if (req.body.tags != ''){
+        category = req.body.tags;
+    }
+    if (req.body.description != ''){
+        description = req.body.description;
+    }
+    
+    Deal.findOneAndUpdate({slug: slug}, {$set: {name: name, address: address, price: price, category: category, description: description }}, function(err, deal){
+        
     });
-}
-});
+    res.redirect('/deals')
+    });
+
+router.delete('/:dealSlug/update', function(req, res){
+    Deal.findOneAndDelete({slug: slug}, function(err, deal){
+        
+    });
+    res.redirect('/deals')
+    });
+    
 
 
 module.exports = router;

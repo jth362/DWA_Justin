@@ -1,3 +1,50 @@
+<div class="ui secondary  menu">
+        <div class="item">
+            <h1 class="logo heading" style="font-family: 'Londrina Solid', cursive; font-size: 48px; 
+    color: white;
+    margin-left: 3%;
+    margin-top: 1%;"><a href="./search" class="heading" style="text-decoration: none;
+    color:white;">CheapEats</a></h1>
+        </div>
+    <div class="right menu">
+      <a class="item" href="map">
+          Map
+      </a>
+        <a class="item" href="deals">
+          Deals
+      </a>
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    {{#if user}}
+    <div class="item">
+    <a class="ui item" href="profile">
+      {{user.username}}
+    </a>
+    </div>
+    <div class="item">
+    <a class="ui item" href="logout">
+      Logout
+    </a>
+    </div>
+    {{else}}
+    <div class="item">
+    <a class="ui item" href="login">
+      Log in
+    </a>
+        </div>
+    <div class="item">
+    <a class="ui item" href="register">
+      Register
+    </a>
+        </div>
+    {{/if}}
+  </div>
+</div>
+
 <div id="deal" style="padding: 20px;">
 <p>Submitted Deals</p>
 

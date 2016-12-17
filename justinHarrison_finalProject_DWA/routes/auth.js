@@ -43,7 +43,7 @@ module.exports = function(app, options){
                     }
                     
                     passport.authenticate('local')(req, res, function(){
-                        res.redirect('/profile')
+                        res.redirect('/deals')
                     });
                 });
             });
@@ -53,7 +53,7 @@ module.exports = function(app, options){
             });
             
             app.post('/login', passport.authenticate('local'), function(req,res,next){
-                res.redirect('/profile')
+                res.redirect('/deals')
                 console.log('login successful')
                     });
             
